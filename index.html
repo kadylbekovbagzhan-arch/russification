@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Russification.auto — Курсы по русификации авто</title>
+<meta name="description" content="Обучение русификации автомобилей. Онлайн — из любой точки, оффлайн (групповой и индивидуальный) — в Алматы. Скидка 30%." />
+<script src="https://cdn.tailwindcss.com"></script>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style> body { font-family: 'Manrope', sans-serif; } </style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState } = React;
+
+const WHATSAPP_NUMBER = "77064469632";
+const LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAzoAAAFUCAYAAADs0Em3AAA6IElEQVR4nO3debgkVX3w8W8zDMMADsMiiwgiAhJBBDXuiYi4a4JKXN/XDaNRwCViNHndAtG8gmhU1Ji4EXeEACrmVUAlLuASBQU3QFA2ZRkGGJkZBuj3j+p27tzpvl1d55w6VdXfz/P0c2Fun3N+3V23un51tl6/30eK6DnAzsC9gPsAuwJbA0sGv//DmHKbDn4un1D/HRN+f+fkEBe0KLD8usDym0z4/eIJv1897/+H8QzftyXACuAs4D3ANVNFJ0mS1BI9Ex1FcDOwLHcQCnIu8EHg5NyBSJIkxWCio6pOAZ6ZOwglsRrYIncQkiRJIUx0NK39gQtzB6HkrgV+Azw8dyCSJElVmOhoGtcD2+cOQrXr5Q5AkiRpWpMmPktDfUxyZlUfeFbuICRJkqZhoqMy7PbTp4CX5Q5CkiSpLIeuaRIPEA2tAh4IXJI7EEmSpElMdLSQW4GtcgehxnHOjiRJajyHrmmcF2KSo9G+lzsASZKkSezR0TgeGFrIo4H/zh2EJEnSOPboaJRv5g5AjXdu7gAkSZIWYqKjUR6dOwC1gquwSZKkxjLR0XxPSlTvWRST2H3U/3gccOHkj2hqH05QpyRJUhTO0dF8sQ+IRcBdketUdR+nSHx2iVSfK7BJkqRGMtHRfDEPCC+CmyvW5/wC4JOR6pIkSYrGREfzxTogTHKaz89akiR1lnN0NNdfRqrHC9928HOSJEmdZaKjud4YoY6dI9Sh+nwxdwCSJEkpOHRNc/0O2DGwDnsJ2ud2YHFAeT9zSZLUOPboaK5FgeW/HyUK1c3zgCRJ6hx7dDTXTcDygPLe2W+vkBOBn7skSWoc7+RqLo8HVbFf7gAkSZLm88JWc4XM09Ds8jwiSZIaxwsUzbVp7gAkSZKkGEx0JIVakjsASZKk+Ux0NJdD11TF0twBSJIkzWeiIynUZrkDkCRJms9ER1IozyOSJKlxvECRFCp0o1lJkqToTHTUNf2WPZ6T5m2o1Q65A5AkSZrPREddMUwc2uazFHG/PXcgkiRJXWKio7Y7iHYmOPP9A914HZIkSY3gBpFqs0uAPXMHEVkf6OUOQpIkqe3s0VFbvY/uJTlDd+QOQJIkqe1MdNRWR+UOIKFFwPW5g5AkSWozEx210c9zB1CD7XMHIEmS1GYmOmqje+UOoCYuTiBJklSRiY7a5rXA0txBaAPrcgcgSZI0n4mO2uZZuQOo2da5A5AkSWojEx21zcNyB1Cz43IHIEmS1EYmOlKzvTh3AJIkSW1koiM12+LcAUiSJLWRiY7a5Em5A5AkSVI7mOioTY7NHUAme+UOQJIkqW1MdNQmD8odQCYvyR2AJElS25joSM33xtwBTLA8dwCSJEnzmehIkiRJ6hwTHUmSJEmdY6Kjtnh97gAkSZLUHiY6aouX5g4gs8NyByBJktQmJjpqi71zB5DZy3IHIEmS1CYmOlI7HJw7AEmSpDYx0ZHaYVHuACRJktrEREdSKM8jkiSpcbxAURucljsASZIktcumuQOQSng68C1gHXAZRYJ+1+CxevDvdwx+bg8sHvz38OeSwe83Bf4w+HnHmJ8Myt015983m/P7myeUXzL4efu8f187Iq5RP9cOXtPOwIpBHL8HloW9hZIkSbPFREdt8We5A5AkSVJ7OHRNkiRJUueY6EiSJEnqHBMdSZIkSZ1joiNJkiSpc0x0JEmSJHWOiY4kSZKkzjHRkSRJktQ57qOjJroH8CngYcClwC8okvLtKTbkXArcGzgPeGKmGFN5FcXr3BW4F8VrvQO4BbgVuBr4OHBRrgAlSZLaoNfv93PHoOYIPRh6GWP4O+D4CO3ndArwzCmevxLYJlLbIZ/9UcCJkeKQJEmKwqFrapKPB5Q9DlgTK5AMtmO6JAdgOeHJqSRJUieZ6KgpDgZeFFjHkghx5HJDQFmTHUmSpHlMdNQU50Sq57RI9dTJREWSJCkyEx01wc0R64o1Z6Uun4lUz90i1VOF5xFJktQ4XqCoCZZFrGvviHXV4bmR6nlZpHokSZI6wURHTRBjtbahf41YVx32iFTPCZHqkSRJ6gQTHTXF0ZHqOSZSPXW5PEIdt0SoQ5IkqVNMdNQUMXokfhyhjhxCe7S2jhKFJElSh5joqElCLviPAh4YK5AMjgLWVSgXc9ifJElSZ2yaOwBpnrkX7jsAa4m7KltTnTh4bLbAczah3ZuiSpIk1cZER012Xe4AMrg9dwCSJEld4NA1SaEW5Q5AkiRpPhMdSZIkSZ1joiNJkiSpc0x0JEmSJHWOiY4kSZKkzjHRkSRJktQ5JjqSJEmSOsdER5IkSVLnmOio6foRHl+vPepytgb+GTiP6V6PJEmSJtg0dwDSAi6PVM9jItUTw6eARwK7B9TRB3pRopEkSeooe3TUVIcQlgzMdXGkemJ4PnFe1wER6pAkSeosEx011Usi1rVfxLpiWBehji9GqEOSJKmzTHTUVD+NVM8tkeqJ5WhgcYR6/ixCHZIkSZ3V6/ed26w/Cj0YYs8biXFwLgXWRKgnphivq0nv9d8C74kViCRJUgz26KjJrgwsfy7NS3IgPEl5QZQoJEmSOsxER022W0DZZwMHRYojhZBk55PRopAkSeooEx01XQ94ObCa0fNt7hw81g4evcHj5LoCDDB8bRcCVw8eAKvmPOcGitd1DrALzVxWevPcAUiSJM3nHB3N1bQ5OqpPyGd/IS53LUmSGsZER3OZ6MwuP3tJktQpDl3TXKsDyz80ShSq2+sDy18RIwhJkqSY7NHRXL8DdgwofymwV6RYVJ/Qk8BTgTNjBCJJkhSLiY7m+h7wkMA6HMLUPg5bkyRJnePQNc31k9wBqHYvyx2AJElSCiY6muvCCHWcHaEO1efDuQOQJElKwaFrmi/GAbEKuFuEepRWrD9+h65JkqTGsUdHKWwFnJQ7CC0oVpJzZaR6JEmSorJHR/PFPiC82988MT/jxcAdEeuTJEmKwh4dzXdo5Pr6wJci16npbQNcQvxE1iRHkiQ1kj06GsWDQmVcCeyWOwhJkqRR7NHRKH+bOwC1gkmOJElqLHt0NI4HhhbyK+C+uYOQJEkaxx4djXNE7gDUaCY5kiSp0Ux0NM4Hgd/nDkKN9OncAUiSJE3i0DVN4gGi+VwyXJIkNZ49OprEi1rN5fEgSZJawURHZXhxK/A4kCRJLWKio7J6wIrcQSiLdZjkSJKkljHR0TS2yx2AancssFnuICRJkqa1ae4A1Do94FnA53MHoqTWYYIjSZJazB4dVXEyRcLzityBKIkeJjmSJKnlTHQU4l8pLop7wDsyx6LqVgCPZf1nKUmS1Hruo6OUtgS2AVYDNw7+bVJyfQ/gD8By4NfJIgtzFHDi4L83B5YCdwFrgTW5ghrYct7/rxv8vGPw864aY5EkScrGREdN1sSD863AMbmDkCRJ0sJMdNRkTTw4HdolSZLUAs7RkcpZgUmOJElSa9ijoyZr0sFpkiNJktQi9uhIk5nkSJIktYyJjrSwRbkDkCRJ0vRMdKTR1lH05LgcsyRJUguZ6EijHZA7AEmSJFVnoiNt7FDgZ7mDkCRJUnUmOtKGPgSckTsISZIkhXF5aTVZjoPTFdYkSZI6wB4daT2THEmSpI4w0ZEKJjmSJEkdYqIjmeRIkiR1jomOZp1JjiRJUgeZ6GiWmeRIkiR1lImOZpVJjiRJUoeZ6GgWmeRIkiR1nImOZs2y3AFIkiQpPRMdzZJHA7fmDkKSJEnpmehoVhwN/HfuICRJklQPEx3NguOAE3IHIUmSpPr0+v1+7hikce4AFgXW8SHglRFikSRJUouY6KjJYhycrrAmSZI0gxy6pq5ZPfh5CyY5kiRJM8seHTVZyMFpkiNJkjTD7NFR11yISY4kSdLMs0dHTVbl4DTJkSRJkj066oxVmORIkiRpwB4dNdntwOKSzzXJkSRJ0h+Z6KjpyhygJjmSJEnagEPX1HSPmfB7kxxJkiRtxERHTfdN4IgR/+6cHEmSJI3l0DW1xUHAN+b8v0mOJEmSxjLRkSRJktQ5Dl2TJEmS1DkmOpIkSZI6x0RHkiRJUueY6EiSJEnqHBMdSZIkSZ1joiNJkiSpc0x0JCm9LYFvAf0Jjx8Bf5Mpxmm8Cricya/lxbkCVOu9jcnHWB+4iOJvZrMsUUrV7Q/8PyYf49cDlwBH5gmz3Ux0pDzuYPLJLeRxRn0v5Y/WVIgzpltLtHf7nP++NXL78/39nLZWAY8qUeZA4ENzyv0oWXTTORz4Hevjei+w+4QyBwIfY8P3/5B0IXI80x9/Pw9o74IK7aV6/LJEvAdUrPvM6d6Wyg6f1+5bmXyMAexL8TezlvXnoCY6jHif908ixTSsb+7fdtMfl094TWdWqPOb5d+yIIcD35nT7oXAE0qU2x7YE3g/G8b99jRhbuSXVPusToscxzUVYrjeDUOl+uX4o3sm8J8J66/ymlYDS4FehPZvG9Q1rW8AB0dof67PAc+OXOedwKaR6yzjO8AjEtQb4zOf68PAyyqWfTXwvinLPAv4fMX2UllMcQNlnDXAkop1x/685roR2DZR3Snjnlbs837oa7tm8HPn0EAyGPfa7wAWVazzI8BfVyw7yZEUSUoqP6XoHUrhfcBRFcuuBTaPFMfxwNFVCtqjI9Ur152FU1l/h6MpqiQmsevaMmIMr6V4f2MnOVB8efcpLlbr8KZBeymSHIh/LD6FInGu4q0VyjQtyQHYdYHfPZ7qSU4qN1EcA6mSHGjOOe+y3AHM81qKBKeNSc5Crgso+9BoUWzoKtImOQD3pzjOb05Q91cDyi4B3hIpjkpJDpjoSLOoz8J3fusW2lOxdUDZXQLbHroeeHekuhayhPQXbr8Fjk3cxtDtker5AdWT3T9EiiG3Gxb4XZOSnOEQw+U1tnk78LUa25tvjwR1fiug7KXRomiWqjc7AH4VLYrC1ymO81jfMWUsG7T50Yh1hg7x/scoUQQw0ZFm07CH4Ie5A6EYfxwi5DwW8sU41Cf8NVRpM1W9C/UMxLZ40OYzAuu5JaDsTwPbbop1C/zuB7VFsbA+AXdmAywGHkcxTK4rysz5G2fPaFE0y+KAsndFi6I4zh8Tsb5pvYR43xExhp69LUIdlZnoSLPtQeQf2rHQBVoZIV9uIXYi73sXu+1YE5yreCfFZPmqQoZBxrzAyWl57gAmuCB3ABTD5H5Xc5v/UnN7ZXT12m9tQNlY54Hc36dzXZU7gIHn52w8x+RWSc3TJ9/E3ZzD6EK+GK+NFkV11wN3j1BPyET1GPYEfkyeYzBGr14TLDTfLHcyFzJJPLYdqfd89+qa2lHYcR7je6hJSQ4Uw+ZCj/UY78uewL2ZvGJeEl3N6iVNL9dJOvQi7M6AslVP4llO2CNsT/gE1B/RnDkcdS1lPGtCe01DvI3mJDlzNWmeYlVVlxcOucHTVaF/I9+JEkUaTUjAvp+rYRMdSXM14YRYpyoXO9+k3P4edVkWUPY7FPvdNMWTKVaE0vSW5w5gjCqr2tVhEbBD4jYOSFz/GxLXr/JSrVAZy9kVy8XKE0LnsVZORE10JM13Yu4AplT33eK9a26vjKoJahO/nKusXhdydz7mMuc5LTQUPdc8tlir6qXy+8T1fyFx/VXPfbmHMqYSck0bUrYNNwgfW7FczHNHll5UEx1J8x1Rc3uh56E6z2N9urP3RJMvQl835fNDhp00ZdheqF/kDmCEXAnWNK5PWHdXVzfroqoX4RdFjSKtKqsOxvx+zTKE1URH0ign5Q6gJl1akGXau4oL7buS29tqbKsrx0CKzQJDXJI7gJLqXho+tn+uUKar134hPVVVy+4b0GbdUm7OW1bV81TlmyZdPdilrltFsVrUOsIm44/zggR1jhPanR1yN3+ai5y/CWhn6FfAEyhWwZn7eCxwfoT6yzqROD1To15LjI1Tt5ry+SG9U3UvNzy0Frh68N+rKP93PDzeV1Bs/Ph98q2YuJBYvRmfZ+NjbPj4RKQ2Ugw9OiBBnaO8sUKZE4GLKY47WD+E75bBv819rGX9sRlzEYMrKL7DVgBXDn7eyYZ/B2sHMQyfMzwWxglJdKoMYf14QHtzDVd+3J2Nj/F9gXMitQPTH+uxe7xD5pRW0pU7WdIs2JXJ6+KfAjwzUnt70Z67snV4U2D51cB9x/zu68DDqW+s97Mj1DHuguN1g0foazmIYuGHrnkUzV6hKYYXR6pnUgL34sGjiXMkmr6oxn6B5UPe8yYm5lW8KGI9J4/53c+AQwb/fTvtGA46yfHA6+tqzB4dqT3KbP51GPG+RP5fpHq6YpeAsv8DbFHieaGf3adKPi90uE6ZOENfyzQTudt0067rSQ7AxyLUMc3x0yN8jtJOgeXni3EzQd3XY3ySM99mKQOp0dF1NmaiI3VTjGRnjwh1qPDyKZ57bEA7h0x+SrBpL0CravvcCVX3bxXK/Elgm6cGlp+vzkUuDq+xLRUeGqGOKufHGN/tJ0SoI9Qj62rIREfqrq4MD+iC/5niuW+hGCsvzaI7me7GwFwh57wmLrVe1kdyBzCD3hVYPmRp84cEtv23geVj+HZdDZnoSN2WYqECpVd1wmaZSfn3q1h3k3V1X5A22iuw/JsDy68MLB/DZ3IHoOQOCCwfMlTyB4FtzxQTHanb2jR3QeudW7FcmRXo7lGx7rL1z3f15KcEy7IRnUb6h8DyVZZLnuuBgeVjeG7Fcm3uVZo1064MqY1V2ddnaiY6kjTZljW3d0zFcn8o8ZyQRRWqrPhzSkB7ap8/DSgbslT80OUR6sjlvICyx0eLQqnFuPnzgAh15FbLvj4mOpJy2zywfMhym7eWfF6ZBCKmr1csV+ZudpX9IkK8pmK5VZOfEsXKmtrJKUYCUdaOAWUdglhdrStZNVTIcV7nMO97RqjjJxHqKCN1npB8aXgTHUnqjjJDuH6aPIqNTTvx9k7gbikCUXIhw2VjXZOsjFRPFaEbC/8qShRSHK2/+WCiI0npVRlOM243+IUeZYTu41LlDtxOTPc6pr1Y9rusOUISnVibIX66QplYPYgfqljus4Ofr4kUh9QWZ6as3C8HSUpv99wBdJyLbmiuKpuH3hQ9iuk8b/DzvwLqCB0GLOXw5JSVm+hIUj2Sj0WuUdNeS6yeAHXDfwE/ZuEhk2sHD4Dzgd1SB1WDb+QOQKro31NVbKIjSeUcF6GOmyPUEUOMyelNSnbcL0pzXUaxMMdCQyY3Hzx6wMMjtXtSpHqqeljm9tU9dZ1bX5qqYhOdfA4BTqPY4K8/Y49bgUuArwEfBv4eeCHwjKB3VErrDRHqWEYzEoRYe4004bVAuY1SVY/WT14O8IKK5b4y7//fUbGeOlfXk1rBcc31ORJ4K0V2HLL8ZhdsBew5eIyyGriF4gvzqxTvXd3L+0op3Qw8DfjvTO1fFKmedRTJTtmFECRt7HPz/v//UG3j1cXAvWn3XkKaXR8FDo9dqT066TycDXsx3g9sj0lOGUsp3qedgRdRrIYzfB+flS8sJRJ6Bzjkhs2KKZ8f64J+GXAueXtEvhqhjuHcmOHfZy4hG7ouiRaFwOuKKj4Zsa5fR6yrbcosrz+OvcKj1bnv2kuAzcb8btrv6j/yhBTf8Av/u7kD6ajPU7y/se5IS7n1gQ9maPeJCepck6DOrnFlrG46IHJ9zjvTLFo75t+/XbVCE5049iL/Hc1Zsy++58ojxTCtV5DnWI79WpZQvA7vjo5nMthN749cX+ULO6mD/rNqQROdMG+n+FJ3J+O8THjGe23uADrqjYnqvQk4I1HddVpM8Tf5wtyBSDU5oGK5W8b8e8jiJw8KKCvlNup6rvJ1tolONd+i+CCqTBZUOt5J3ti7cwfQUe8Erk5Q73LgLyiO5a0T1D9KyoUEPoE3IeZanTsAJbNVxXLjhpB+r2ogwMcDykqxVL3+GDVs87yqQZjoTOcyii/tR+UORGMN7ySfmDuQBvhRYPmLo0TRXfdMXP9KAk7uU+oBVyasvw+8PmH9bVnSeCmjl9xfA9w25nejHifXHbgWdN+Asin+xu+foE5pWq+rWG4RcEGsIEx0yhl+ueyROxCVdgSzfSf5ZuDAwDqeFiOQjusBNySs/2EUx3Ed5+rdSLsPx3HAjYnqbvvE7SVMt7rRX6UKRJX8R+4ApIaqugrgA2IFYKKzsJuZ7YvlLugTdretbf6U4jUvi1CXezGUc3fSD0m6BrgqcRswfmnPWLalOD4fmbgdqU4PSVSvvepqu70Cyv5zjABMdEYbzsGJcbGo/H4BPCl3EBH8kOIP/yTgO8BvKSav38H6XsfvR2orxfyTcULPQ4sCysbqwdiC+KsuzbUjsAv13HipY/PPbwM/j1hfyNC1OveJyKUtQ/tmzaR5vvsF1D2LWzCEHOch+7F1WcjeRBD2mURZ9McPdkNnAk/OHYSS+ApwIfH3OqjTg6hvNZ3U80+66FUU82renLidPumTkR7pk6p9qOe1SCmF9IJGuWM9xr4J65am8SKKhWmmNW5FwqnYo1M4g+IL1ySn2x6AQxHLcLhEdW+hngv3unp29iT9/JcYr8XvMuXyqdwBSA13UsVyy4jw/eCXQzH05y9yB6FaXZ87gAZbS9hwCRV6wFcTt9EHPpy4jcuop+ffGxBqq9QLQ/w+oGxdS9RLk3wgV8OzPHStSV+sq4DPAKcD51CMaaw6LnLSZ7oDRYK7iKLLffGgzOLBv28z+N2dY34Oy9815uc+FCsIbUIx9n3poJ0lg8d95/z7cGz84oqvtartccjMOJ/OHUCHDPfHSHmueRnwISIuxTlGD/h74B0J2/BvUtrYkcAXKpb9PrO1GI+a60iK1XCrOAw4pWrDs5joXAPsnDmGfyDd2NxJCdI1idqN5RKK4TJ18MJqY4fnDqCDehQLR+yaqP4fU89x/M+DR8rE7d+Bv65Qzsn2apujSz6v8gUesHdAWSnU5hR7hA1dSLVlo79AwHfcLA1dewrFF3SuJOdUig+qR9oJiG23F+vfp7fW0N6ayU+ZGSZ96exG2ve3zh7qHvCIRHW/FJeeVnucFlD2hGhRSM205bz/PyBHELOS6JwGfDlT22+luDA4LFP7bXYMxXv3koRtLKGYpzXrTHLq0QMenajuqrtQV3EexWupuhncODdQLD0ttcGhuQOQGmyPiHVVvpnX9UTnVoo359Aa27yQYp7NrhQXAsfU2HZXfZzivfx8ovqXUxwrs+jfyJ/kLAksf0NA2VTDyRby3xTv+bMJm2g837si1lXWfShey/mR6tt+8HPaL7WQeX5/CCjbFvPvrKY0C+9n3T4RULZJ85FTW5s7AG1gnxH/Vvv1RlcTnddS/HFvlaHt9wCHUM8u5rPmOaT7I9mK2fpCgOK9fHnuIGbYycBOwDci1plrY9yHkz9hnhWrafZ7XffiMm20asrnp1wEREqlETlGI4KIrA+8O0O76yi+fKquF67yehQ9Zyn297g5QZ1Kq+3nsYMpjumQnqmhkyPUEaJHcSEew3ci1dM0h7J+HmKVxxa1Rzydtv89lvX6gLKvmfL5lwS0JeUy7lxQaydEl05IZ5LvjvyehO2OrOkdALwtQb3DDarqnO+QS1N6sKoupR5Dk86Bd49QR45e7Pm2IM7cnVQLHuR2Ru4AEmvS31RKfxNQ9qPRopCaa9yw9FqHt3bhhHQvigu2J2doey3FHbbLMrQt+CfSDeF4F/C5RHUrri6cx4ZiHM9vi1BHqPsAH8kdhLKYlaFrMSdalxHSU/rBaFFI5S3UAXBgXUG0/QKhD1yRqe1HU6wRrvxSJTvPpllJ7Lo5P4eLXoROQPfOYvOEHs91LMtexl8TPjn4ayWfl2IYq6pp+3VFHfojHteP+ffhY+nImsp5RUiwUkULLTR0QV1BtPWEdBJ5h930KFZOUnP0KHaBjm0P4LYE9VaxGcXr3Ixi6N4hFOPEQ+Z2pFy6uy6zuPFxW2zO+gS9ikfFCkS1acrf480snDiMepT1vqiRFraf/BSpVSadC1KtpLuBNiY6feAFmdpeSbNXu5l1D01U71KaM59llNAvyFTvW10W5Q4ggS6dZ/4poGzIXWzNtmUJ6z4qYd1SV0waxvqcOoJoU6Iz7NbNZStgm4ztq5yu7D4/jR0Dy8faA6WqkDv+AH8aUHb3ks/7OUXPXpm7wncAawJiSm24v1jZx48C2/tAYPky7gooOwsLydT5Xd+EGw8n5A6ggc7LHUANQvaLattNlb1qaifk3Fqm7OkB9ZfShkTnEOB28nbr9nATtDZJmezcmLDuqq7LHUCgmwLLh2w4WnaC716U/yJcRPgmqAAXR6hjlGlXZgudNNrEvxl1W65RH032sNwB6I8eHqGOJs0fHqfMMNanpw6i6YlOHziLfKu4fJluDSGZJak+t21pZs/OlYHlvxQlimruF1j+ngFlV5Z4zpvIc5c6xabD7hOlWZDyxuiRCevWbDgiQh0hN6DqWryl7LX7LSmDaGqicxn5LyZ7wNMyx6AwKZPU0F6I2HYjLNl5aqxAKgjd4DfkhF+m5+XYinWHDl/bOrD8KFXnLdQ1TELtF3rTpenemDsAtd7zI9QRsiBGE4aXzrU14St0jtWkRGc71o8Jr3t9+rm+j704XZLqs1xO/mR8vtC5Bu+MEsX0nhBYPmSOTopkYih0+Nq2UaJYL2Q5/C9Gi0Jd98ncASS2S+4AAjwldwCKpg0bKk+zAuO1qYJoQqLzSoo5OCFL5MbU9hWotLFZmbOzU2D5v4sSRf32DSj7u2hRxBd7md5dA8ruEy0Kdd07AssfE1jeoWXjvT13AJop0+QY925CEDE9h/W9Nx+gGTspn4o9OV02a3N22iZ0nk5Vp2dqt4wdItd3SeT6pFFCF+55c2D59weWX8irEtZdhwfkDqBDvh1Y/i8Dyv55YNuhNyPKakJnSq1BHElx97QPfLbGdsv4R+Cw3EEouZSJ7A8T1j2NXwSW/0yUKKZXdTGEiwLbPb3Ec0Imbv42oOy0q6Ol9ryK5c6OGoU03nYBZU8t8Zz3BtSvbjknsPzpAWXPDWw79GZCKn+VotJUic4LWb/vzfDxfsL3+0ihB7wtdxCqTY80k2UfRLmendSrnfxJYPnnViz3uMB292D6nrHnETZsDcpdhIdM3NwV2K9CuSb2En66YrnHBrS5quTz7hbQRoylwJuu7iGaoXtjVT3+Q4bAz8rNzoNyB5BQyHDfaSfDv408x3mMm6rT7I0T8p5O+/d4CgkWJYiR6GwJ/JINk5pPkHffm7IcqjabdktY99cm/L6O1U4+Eli+ysk31l37T5V83uZUv/Ce1kMCy39jyuen7B0MTfKnPTZCE7bLSz4vZFM7xRfjjvG0x06T5ksu5ByKPW16FDd/H0xxjtmHYoL5Q4D7U9wkWU6xf9cy4l1T/XukehRn2sU1Uzz3ZoqbqiFS7c82SpX358mxgwhJdK6hOBGtAvaOE06tTHJmW6rP/3EUi2vk9NeZ2o1xJ+b5FOeVhcYv30j5jT4X8sySz/tBYDvbs/4m0CR9wr/IFhpSESPJ7zN5l/X7EadX6okln3dHQBshZdui7rHysVZw7AP3mvCc2wbPC1ml8MclnnNQQP1QLIPfo9gE/XuDf7sO+B+Kc8wvKf6ufkAxJPcqigvbNcCtFOe9HuHfXXsGlm+ykL/lKjdLYiT0O1Mcv29a4DnD82nV7QHmqjLCoKoq552vNyGIWyne8J0jx1KXtZjkqJDqOFhM8XeSU2giUGXloxgn4aHT2bCX+PY5/x1r2eX/jFTPNPoTHqF+TXEhldrDGP/59Il313Cau51VhQ4/0Wix3tcrGH+c9Sl6PEI9sMRzQntCLggsP1eypXhnWJUk6Z8itn8s64/pO0hzPm2LMvPlSpsm0Rm+4U2bIDuNdYTtJaHuSZXsbEXx9/IvieqfZIvA8lXuVKXsyYq9MuO0q8605eZImSTwbxO0m3vlzJCha7PQo5Pj8wnd12uUFK+j7LzJJvWENHUyeW4h54GqiXmKebephrgfWqFMyHtatSc56ny5skHUcVetDtvkDkCNlPIi9tVseKc+9WIEsawDDqhQLvr42kT+T4Uyt0SPIr43lHjOe5JHEceDp3huW/6uZs3VuQMoIfZ+VaN8IXJ9Hw0sf2aUKAT1HD8xrALOqLnNkIRt2rmtY01KdO5Du4epzRe6vr+6qweclbD+YbJTx2IEQx8LKLuYcuPW5/sv4PyAdutQdaW2raNGkca/lXxe6AILqf2UYu5CHdpyodJG98wdwARfLvm8pwS286zA8rG15YbUtELmooX0Fka7KE/okbkDmNLBsSpa6KC4Brg0VkNSCzw+cf11Lxl8eM3tDT08U7tlXAn8LKB8ymQ41MuneG7oAgup7V9jW7mH3XXdV3MHsICnlXze55JGUY29mBsLuWkRUvZgipszTXU+8JPcQeQyLtG5nu704szVxL0p1CxlV+Jqi9Avw19WLNfUOS2hq449nvBNWVNYS/nenKGmfkb/UXN7O9TcXo7dwrfM0OZQ2ZXz6jbN8d/Euckn5w6ggdYElA1d5KbOmzPTWEXYzcecIxmifEeNO+F2eS7LzbkDUKPlWImrjKqrqIVuqBmydHyTLqRvIV48oZuyplB1kZUmfUZQzA17YYVyIRfydQ+1zLHnT8iGqjE06Ti7k3rjSdXz8rzA8l+KEkWzhFyUx9geoUnH+VDo3/51AWVjbANRdtPosUYlOn3qnUdQt2UUr/Gi3IFIU/hAxXJVe2TmCpm42iN8k8oYYt+VasoX2qWEx9KU1wLVV+r6XUCbTw0o2xYrcwdAM46z7zL9XIX/HdjmCYHlU+nicR8y/CzWtgVNOM4h3s29kNFdMTpNgm/S5OhCb4p92XCd8puB7wDPoRi3uz/d7tnSaB/MHcAYR1Msg1tlgt57A9sOnbgaY5PKqmIkAuP0gN8nqrusvSLVkzshDf2clgeUrXsOSYpllydpyqbePeKvQFbWnRRJzvcmPXGe0KGUbVnlsC4rEtYdssVB6EbNc/XIP4cq1s29lQFlY9xoDTY/0Ym+I2mLLAMeAXwW+CJwIcUf5KQN/nx06/EKmmsRxa73fab7W31Nkmim06NI1upuM1YiMM5OhA8PrOJY4idwuwHnUu8y2qspjuvQz+mGgLJvDGx7WjmGkYUMP4ntWRTHbt2Tt3OtrhfS2zhJjKFBdYvVczJKyE2E5bGCGNiUPIvXrKA5vUr3i1TPS0MKz090HhFSmaTaPIb1yVlbnED6O7rrKBYLqPNE/7NBe/+3hraGr+0tieo/iOJOYB29Ox+i2Ng2xpyVnQLK1n2xeGPN7QHsE1C26kaKk+xPPcdZj+Zc+MX2FxnbTnVchAgZZrVjtCjWezz1Hnu7ANtFrrPq/Mc7CR9NMhS0b9TcROe1wJKwWCRlMEx4Fhp7/u6A+mOP5R7e0T02cr1Q3NHLtVjA31O8rmcnqPu4Qd11vbbdSPMZrQOeMKj7lRHrDblbv0WFMlUnLr+6YrlQISvLpRxqNzzOPhK53l8RL8EJ6XlKfZF7dkDZ9we2/eOK5VK+J1WvYc8nba/n8Fj8foK6V1LcyOhRbAsTW9WbJAcDl0eM49wKZVYBvV6//8cbwm26MyxptPOBU2juBNhxfkn1eQQPpr7NJaf1JOArFcqtAk4CjowbTpBHAt+uUO4cijubOVYbU/s8Azh1yjJrgXcAx8QPp/FupBiN04j5ECrtncDfBZTfG7gkUixt8SSKTcmnYqIjddfVNH9nckmSpCRmedU1qet2Yf2wtiqrtUmSJLXWMNF5WtYoJKU2XK3t+NyBSJIk1WE4dO3rFKs4SZoN38BeHkmS1GHDROc2YGnmWCTlsRRYkzsISZKkmIZD10xypNm1mmJY2/65A5EkSYrFxQgkDV1IkfCk2oxSkiSpNsOhay4tLWmuFcANwH1zByJJklSFPTqSRtmWYkOyPnA9cO+84UiSJE3HREfSJNsDv6ZIeh6ZORZJkqRSHLomqYofAw/MHYQkSdI4JjqSQtwJbJo7CEmSpPkcuiYpxCKKGyV9YK/MsUiSJP3RJsA9cgchqRN+RZHwPDx3IJIkSZvgakqS4vouRcLz89yBSJKk2bUJxTKykhTbPsBNwNm5A5EkSbNnE2CH3EFI6qzlwGNZP49HkiSpFpsAy3IHIWlmmPBIkqRauBiBpBxMeCRJUlKbAHvmDkLSzBomPM/JHYgkSeqWTXDvC0n5fZYi4TktdyCSJKkbev1+fw2wJHcgkjTHLcDWuYOQJEnttQkmOZKaZxlFD89FuQORJEnt1Ov3+04IltR0vdwBSJKkdtkkdwCSVMLluQOQJEntYqIjqQ12By7JHYSkKF4FXMD6VRdHPa4C3pQpPkkdYaIjtcc6YAXFRP21mWPJYU/gxNxBtEgfuIOFLyZHPe6Y99+/rCne781rd6HYfwf8BDgmUtuHAect0N64x5cWqHNcfcPXdjtw2+DnmsHPSY9J8YSWPxt4xlTvXDlnzGvnvcADJpTZBTh2XrnzEsQmqcNmYY7O84HPVCz7euC4iLFIC1kH/BXFRUFV5wEPixNOYzlfZ7LY5/XU73lIvDFiux7YPmL7JwEvqB5OVr8C7huhnpcBH45QzygrKc6VZyeqX1JHdCnRuRLYFXgF8K+J2vgm8OhEdWs23QDcPVHdfwN8KFHduZnsjHcTsDxynV1PdGK339bv1XXAYsLe09cB74oTTinLgFtrbE9Si3Ql0VkJbFNje8+h2OBQqupo4ISa2rob8ENg75raq8NiiuE/2liKc/q7KHq4UzHRaZaq72mu130ucFCmtiU1WNsTnbXA5hnbN+HRtB4FfCdj+23+e5/PXp3RUn3GKd9vE51mqfKeXgbsETuQKXlOkLSBNi9G0CNvkgPwuUEcn84ch5rvKxTHSs4kh0EMu2eOIZYX5w6ggarOR2yr3ItyrMrcflP8iPxJDsCncgcgqVna2KNzHPCG3EGMcRpwaO4g1CiXAnvlDmKMLwFPzR1EIO/gbijl+dwenfLtt+17db5p3tMmvlbPC5KA9vXobEVzkxyAp1OMFZYATqe5SQ7A0yiWcJXKSDlHR+3UxCQHimW7JalVPTptukPT5dWuVE6bjldo7gXLJG17n1NL/Tmmer/t0WmWMu9p01/jlcBuuYOQlFdbenTadjHzr7QvZsXTxs++R7F/RtvskDuABmlyb7faY3WJ57Rh/5pdcwcgKb829Oi08aJxrqa/v4qr7cfrzRT7UrTFQ4Af5A6iIVLsnzOfPTrl2m/7eX/Se9qW17ca2CJ3EJLyaXqPTtsvGqEbr0HldOGz3jp3AFP6Q+4AGmTTGtp4fA1tKK+zJvz+olqiiGNp7gAk5dXkRKcLF41DXdqoUaN16Xht02u5NHcADbJVDW0cW0MbXdDW4/JSJiez+0ZsbzXwZuBAit7IpcAbgRXEWzq8Lb1PkhJo4tC1G4C75w4igTfhRUJX7QFcnjuIBO4AFuUOYoI2JWUpHUNxwViHFO9514auQTFn6p3A24FrgZ2Be1L8XQ0Ne+EWD35eS5FI/DlxeiNuAa6h+F5dSzHMcy1FT+jaQRvbAjtRDFl9+oT6vgY8LkJc5wCHlHherOsTzxPSjGpiopPqhHQS8IKSz30m8J8JYriIuHfDlN+XKZZpju2ewOeBR0x43rXAe4DjE8QAzb8b6gVMoc7PyUQnfvujdC2moWlji3HDZW/gksA6JLVQk4euxfB6ihNzn/JJDsCpgzI3AgdFjGe/iHWpGWInOcPj9UomJzlQ3CU+bk652HudnB65PrXffXIHoNZ6boUyMeaeOZpCmlFN69GJdRfqw8DLItUFRff/A4HLItXXpPdc1cW8axr7mLgWuEekun5Lc5dqtUenUOc55WLi37TJ3XuRu/1RmhbTfQifexQSV+gx7rlCmkGbUEz6a4JDI9XTJ26SA8XY5UuBr0eq785I9SifqyPVcytpLlJ3jlivm+4121sqlltVsZzDb2fTRwPLPzVKFJI0hV6/3/8g8IrcgRB+t+UM4C9iBDLBSmCbCPXYq9Nuue8iT+NOwod/NPV49S5t9c9mKeU2hxwl9vueu/cid/ujNC2m3D0q08yzTdG+pBbq9fv9ewFX5I4jsHxdSc5coTG3bWNGrfcL4E8C66g7cbiS8J6ZJiY7XrxU/1x6AWWXUfRGxpL7oj53+6M0LabciU5oDJ4rpBm0CfCb3EEEuor6kxwIP+m3bWNGrde2JAeKOTah7f4+RiARfSR3ADPs47kDUKuszB2ApNnUhFXX9ggoex9gl1iBVNDEO9xKa11g+duiRFHdjwLK7hQtijjenzuABnhlpnafkKldtdPpuQOQNJuGiU7VcdoxVN1ocUuasfu0XemzZbOAsn3ibAIY4kDgeZljiOUnuQNogA9ULPflwc+vViy/VcVymk235w5A0mwaJjq7Z2r/2oCyVVcMSiHkLrlmw025A5jj0wFl/ypaFMppOOzviQF1xFq+XJKkJIaJznWDn6HDcqZ1QMVyZ8YMIoIDA8p+IlYQSu5DAWWXxwoikqo9kadEjaK6i3MH0HJnRKjjtAh1SJKUzNw5OmcBi2tu/7rJTxmpiePDq869eHHUKJRS1fkQ10SNQhB/w8o2Ojhz+w/J3L4kSQuam+g8nmLZ3Ka7BliUO4gRlgLb5Q5CjbM5xeadTVS1V+fNUaNQVaEbOA5dEakeSZIaZf6qa39XY9tVJ9HuEDWKuG7IHYCSWVmxXM6FPlL5p8ztu4hHYfeK5c6f9/9HBsYhSVIjzU90vlRj21W/XJvYmxPqi7kD0ERvzR1AIgflDkC1O3ze/4fMeXxfSCCSJKU0ah+dJt8tbcMmdVX2JnLjw+arckH3luhRxNe2C9Umn5/qdN+Asj+LFgW8NGJdkiRFNe6ivKkXEy/KHUAJX6lQps6eNNXnubkDKOH+FcudFTWKyVbT3PNSDk2ZT5l7Xyi1Q5O2g5A0QxbqfegBK+oKpEOatnu88unyPiN1D7fcoub2Zk1TEidJkqKZNMxqO+CWOgLpkO1zB6DGWJY7gITqGm55NfbkxPSFMf/+ooA6Y63+JklSVGXmk2xN/AuNtZHra5IluQOQpnS/CmXWRI9iYwcC96yhnbY5IKDs/IUIhr4XUOdLAspKkpTMNBPne8RLeLqcDFRZjEDKqUqik8o6igvnHnBB3lAa67SAsrdGi0KSpIarclE+THgeBlxcsd1fVSzXBptWLOcePM11de4AEqs6ofyKiDH8A8V5ZTPasbpiTrsnqrfrx7kkacZUvSiHYqjDfgv8fnNgMcUd2kWD/we4MaDNNqg6L+P+wD7ADwLbXzfh94sn/H7+Bpexe6hCe/PmxrfJiP+e9PrunPD7Naw/Vrcf1Peb0tG1U9VFRx5McbyvAP7A6M92/vF4e8W2lN7HgDdXLHsC8LqIsUiSFKzX7/dzxzCNtgTr5GlBe47XBwP/kzsIlVb1uPou8MgFfn9v4NcV64aw817I30qM823u9kdpWkwh8bybOIlw094TSQ3nfJL4vps7ADVGW5bsNclpj5ALvYWSHIDLA+qWFrIodwCSZpOJTnxb5g5AjTFpmFwTzB+qKEmS1AltS3Q+kDuAEr6ZOwA1xp/lDqAEd7ZXLKfkDkCSpLnalugcmTuAEl6TOwA1xk25Ayjh0twBqBbXlnzeUQFtPDOgrCRJ0bUt0ZEU1165A1BpxweUfXLJ550Y0IYkSY3SxkTn2NwBSFPYNncA6oyjA8peECsISZLaoo2Jzlto7sZ2Ll+p+W5i8t5GubwxdwBqpJW5A5AkKYY2Jjrgcrhql81yBzDCLcA7cwehRvp0QNmvRYtCkqRAbU10/jJ3ACPYm6M22T93AJrKVQFlPzLl848JaMvjSqO0Yal9SR3U1kQHmpVYhNwB1Wxo0vEK8JvcAWgquwSUffmUz78uoK0dA8pKkhRVmxMdCJucG8uFwP/KHYRaYY/cAQC/p3lJl9K6q+b2HlRze5IkjdT2ROcE4D8yx3BA5vbVHpcDu2aOYafM7at+/QqPEGcHlpckKYq2JzoALwRekKlt74xrWlcBj8nUtsdrO7Vho+S5lucOQJIk6EaiA/BJ4AjqXcbXi0ZV9U3q79nxeG2vt+YOQJKkNupKogPwQepZxvezeNGocFdRz3G0oqZ2lM72uQOQJKmNupToDPWAUxPUuwpYDDwvQd2aXT3gcYnq3hnYLlHd0kI+lTsASZK6mOgAHEZxAflU4Aaqr+F/Met7cO4G3BElOmlDZ1McYzF6Xj49p67fRahPeb0+dwAVPb/GtrassS1Vs2/uACTNpq4mOkNnAncHNgXeO0W5a4F9gP2wB0f1GiYpTwZumaLcSwflXOq8Hs+jWPXxfydu5+2J6++CkwPLPyVKFFrIn0eo46ER6pA0Y3r9fuhKopI0E8qcLJcCa2pus6mm6aEMfZ0hvaG3UwxLztH2QkLekxQx3UZxfFcVGtM1FMNxc7UvqYW63qMjSaFupPxF5yrgpoSxtMmJuQMoKSTJmSXnZ24/JMmRNKNMdCRpvD6w7RTPX0Sxj8xtEdr+ywh15HTEFM9dEdjW8YHlNdnHA8v/NqDs/oFtXxlYXlJLOXRNkka7CtgloPwqikVMqrqe9i8tXXa40IuBjwW0cwuwdYVyoV+A7wZeF1jHOE0bugb5hhiGtvt84DOBdUhqIRMdSdrYT4D7R6jnqRSLolTRhZNznfN0pm3vZmBZje1Nq4uJDkwfW442JXWEQ9ckaWMxkhyAL0eqp6rjgIcAewB7U8xHWUpxgb/t4OfSwWPx4P97wCOA1RHaf+UUz51mlcFx1gAPKvG8PuFJjqrpU773rQvJvqSMTHQkaUPfilzfDhXKHBzY5nCZ8jcAPwAuBy6h2AtsDXArxaIJtw7+f83gd7cOyp8HbEH4nfAPTPHcLwW2BbAE+CHFBfKopbn7xLt4XhmpnjZZEqmelRSfw2kjfrc/xR5gsT6n3DcbJGXk0DVJ2lDsk+LHgMOnLPNbYNeANmMO1TkNODSgfN3D1+qwFtg8cRtNHLoG7fmMhhy2Js0wEx1J2lCKk2Ld8xJiXtzdC7gioHwXEx1IfwHd1ETnIOAbCeuP6Szg8bmDkJSPQ9ckaUMx5qbk9NXI9f0msPy/TPHcttx9b0ucKXwzdwBTMMmRZpyJjiRtKGT39xieEVj+qVGiiOfVUz6/afHPd1buABqgDZusznIyKmnAoWuStKHYJ8VLgb2meP6NTLdJ6XwpLvDqHkrX5C+mui6gmzp0bSh07lZKVwP3zB2EpPzs0ZGkDcWefzDtQgQhSU4qz625vabejW9qXDk8PXcACzDJkQTYoyNJo8Q8MbZ5IYK5QuJ6LPD1mtuMre4kp+k9OkNN+ozAZFTSHPboSNLGroxUz++nfH5Tk5xQn6lYrkf+/WquoP73tU3fzT3gvcDFuQOhuce/pEzadDKVpLrsFqmenSLV03YhG01uQ76L6HOAe2doN/eCGNN6DfDOzDGY5EjaiImOJI0WcuF0J7A8UhxNEbJs9V2Bbe9H/ReyewCH1Nxmm32SPMnG1ZnaldQCJjqSNF7VC6itgJtjBtIAhwaUvSFSDD3giEh1TWrn8hraGeceGdsO1QN2rLEtFx6QNJaJjiQtrEfRQ1PGxYPnr6nY1qoJv//14OfawX8Pn/9V0t/VLvOaVsz577mx3jdiHB+keK0HDv6/7GdTRo9m9A4spXgvp31tV9CM+K9j/Xv57Yj13gKcSnM+J0kNZ6IjSZNtSnFh9Q5GX3weMfj9foHt3I31F3GjHvcZ/Nx88N/D5z8xsN2yjpoQ33ZjYk3hgkH9m1IME/y3KctfCbyUDeNvip9QvJfD467sI8d8okn+jPXxfZEiGZvGDRSr9vWArYHDYgYnqdv+P1DbZX7PdTJeAAAAAElFTkSuQmCC";
+// Вставьте сюда ссылку Google-скрипта, чтобы заявки шли в таблицу (необязательно):
+const SHEET_ENDPOINT = "";
+
+const fmt = (n) => n.toLocaleString("ru-RU") + " \u20B8";
+
+// ---- Иконки ----
+const Svg = ({ d, className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" dangerouslySetInnerHTML={{ __html: d }} />
+);
+const Ico = {
+  ArrowRight: (p) => <Svg {...p} d='<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>' />,
+  Phone: (p) => <Svg {...p} d='<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>' />,
+  Check: (p) => <Svg {...p} d='<path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/>' />,
+  User: (p) => <Svg {...p} d='<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>' />,
+  Wifi: (p) => <Svg {...p} d='<path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/>' />,
+  Users: (p) => <Svg {...p} d='<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' />,
+  Crown: (p) => <Svg {...p} d='<path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z"/><path d="M5 21h14"/>' />,
+  Chevron: (p) => <Svg {...p} d='<path d="m6 9 6 6 6-6"/>' />,
+  Shield: (p) => <Svg {...p} d='<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>' />,
+  Head: (p) => <Svg {...p} d='<path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H4a1 1 0 0 1-1-1v-7a9 9 0 0 1 18 0v7a1 1 0 0 1-1 1h-2a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>' />,
+  Trend: (p) => <Svg {...p} d='<path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/>' />,
+  Star: ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.69 21.547a.53.53 0 0 1-.771-.56l.882-5.139a2.123 2.123 0 0 0-.611-1.879L2.453 10.33a.53.53 0 0 1 .294-.903l5.165-.756a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+  ),
+};
+
+const FORMATS = [
+  { id:"online", icon:Ico.Wifi, name:"Онлайн-курс", tag:"Учитесь из любой точки", oldPrice:170000, newPrice:120000,
+    points:["Видеоуроки и текстовые инструкции","Личный куратор и тех. поддержка","Доступ к поддержке на 1 месяц","Изучаете в своём темпе"] },
+  { id:"group", icon:Ico.Users, name:"Оффлайн — групповой", tag:"Практика вживую · Алматы", oldPrice:350000, newPrice:245000, featured:true,
+    points:["4 дня живой практики с куратором","Всё, что входит в онлайн-пакет","Полное сопровождение на обучении","Доступ к поддержке на 3 месяца"] },
+  { id:"individual", icon:Ico.Crown, name:"Оффлайн — индивидуальный", tag:"Максимальный результат · Алматы", oldPrice:550000, newPrice:385000,
+    points:["Персональное обучение 1-на-1","Всё из группового формата","Новые тренды и наработки команды","Возможность дальнейшего партнёрства"] },
+];
+
+const MODELS = [
+  { brand:"Changan — X-series", items:["X5 Plus (Android 4.4.2)","X5 Plus (Android 9.0)","X5 Pro","X7 Plus"] },
+  { brand:"Changan — CS-series", items:["CS55 Plus 2024","CS55 Plus 2025","CS55 Plus Pro 2026","CS75 FL","CS75 Pro","CS75 Plus (дорестайлинг)","CS75 Plus (рестайлинг)","CS75 Pro (рестайлинг)","CS55 Plus / UNI-K / UNI-V дилер"] },
+  { brand:"Changan — UNI-series", items:["UNI-K (дорестайлинг)","UNI-V (рестайлинг)","UNI-Z (рестайлинг)"] },
+  { brand:"Deepal", items:["S07 (2023–2025)","S7 (2023–2025)","G318","SL03 (2023–2025)","S07 2026 (установка приложений)"] },
+  { brand:"BYD", items:["Destroyer","Seal 05","Qin Plus (чипсет 26)","Qin L (чипсет 18)"] },
+  { brand:"Hyundai", items:["Tucson","Sonata","Elantra","Grandeur","Santa Fe","Palisade"] },
+  { brand:"Kia", items:["K3","K5","K7","K8","Seltos","Sportage","Sorento","Carnival"] },
+  { brand:"Chevrolet", items:["Monza"] },
+];
+const TOTAL_MODELS = MODELS.reduce((s,b)=>s+b.items.length,0);
+
+const STATS = [
+  { value:"2 года", label:"на рынке русификации" },
+  { value:"500+", label:"успешных русификаций" }, // <- поставьте своё число
+  { value:TOTAL_MODELS+"+", label:"моделей авто" },
+  { value:"100%", label:"сопровождение учеников" },
+];
+const WHY = [
+  "Тысячи новых китайских авто в Казахстане — у большинства интерфейс на китайском",
+  "Владельцы готовы платить за перевод системы на русский язык",
+  "Специалистов мало — конкуренция низкая, а заказы идут постоянно",
+  "Можно начать из дома: без аренды, склада и дорогого оборудования",
+];
+// ЗАМЕНИТЕ на реальные отзывы!
+const REVIEWS = [
+  { initial:"А", name:"Арман", role:"Выпускник онлайн-курса, Астана", text:"Прошёл онлайн с нуля, через неделю взял первый заказ на русификацию. Курс окупился буквально за пару клиентов." },
+  { initial:"Д", name:"Данияр", role:"Владелец автосервиса, Шымкент", text:"Добавил русификацию как услугу в сервис — пошёл новый поток клиентов. Кураторы помогали, пока не освоился." },
+  { initial:"Е", name:"Ержан", role:"Доп. заработок, Алматы", text:"Делаю русификации по вечерам после основной работы. Спрос реально большой, заказы находятся сами." },
+];
+
+const QUESTIONS = [
+  { id:"age", q:"Сколько вам лет?", options:["До 18","18–25","26–35","36–45","45+"] },
+  { id:"goal", q:"Какая у вас цель обучения?", options:["Новая профессия с нуля","Дополнительный заработок","Расширить услуги своего автосервиса","Прошить свой автомобиль"] },
+  { id:"level", q:"Какой у вас текущий уровень?", options:["Новичок, без опыта","Немного разбираюсь в Android/ADB","Есть опыт в автоэлектронике","Уже прошиваю, хочу прокачаться"] },
+  { id:"format", q:"В каком формате удобнее заниматься?", options:["Онлайн","Оффлайн — в группе (Алматы)","Оффлайн — индивидуально (Алматы)","Пока не определился"] },
+  { id:"calltime", q:"Когда удобно получить звонок?", options:["Сегодня","Завтра","В течение недели","В любое время"] },
+];
+
+function App() {
+  const [stage, setStage] = useState("landing");
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [openBrand, setOpenBrand] = useState(null);
+  const [sending, setSending] = useState(false);
+
+  const startQuiz = () => {
+    setStage("quiz"); setStep(0);
+    setTimeout(()=>document.getElementById("flow")?.scrollIntoView({behavior:"smooth",block:"start"}),50);
+  };
+  const pick = (qid,v) => {
+    setAnswers(a=>({...a,[qid]:v}));
+    setTimeout(()=>{ if(step<QUESTIONS.length-1) setStep(s=>s+1); else setStage("contact"); },220);
+  };
+  const buildMessage = () => encodeURIComponent([
+    "Здравствуйте! Хочу заказать звонок по курсу Russification.auto 🚗","",
+    "👤 Имя: "+name, "📞 Телефон: "+phone, "",
+    "📋 Мои ответы из опроса:",
+    "• Возраст: "+(answers.age||"—"),
+    "• Цель обучения: "+(answers.goal||"—"),
+    "• Текущий уровень: "+(answers.level||"—"),
+    "• Удобный формат: "+(answers.format||"—"),
+    "• Время для звонка: "+(answers.calltime||"—"),
+  ].join("\n"));
+
+  const sendToSheet = async () => {
+    if(!SHEET_ENDPOINT) return;
+    try{
+      await fetch(SHEET_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
+        body:JSON.stringify({date:new Date().toLocaleString("ru-RU"),name,phone,age:answers.age||"",goal:answers.goal||"",level:answers.level||"",format:answers.format||"",calltime:answers.calltime||""})});
+    }catch(e){}
+  };
+  const submit = async () => {
+    if(!name.trim()||!phone.trim()) return;
+    setSending(true);
+    await sendToSheet();
+    window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+buildMessage(),"_blank");
+    setSending(false); setStage("done");
+  };
+
+  return (
+    <div className="min-h-screen w-full bg-[#0f0d0c] text-white">
+      {/* HERO */}
+      <section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-24 -right-24 h-80 w-80 rounded-full bg-[#c0341d] opacity-30 blur-[100px]"></div>
+          <div className="absolute top-40 -left-20 h-72 w-72 rounded-full bg-[#c0341d] opacity-20 blur-[120px]"></div>
+        </div>
+        <div className="relative mx-auto max-w-md px-6 pt-10 pb-14">
+          <div className="flex items-center gap-2.5">
+            <img src={LOGO} alt="Russification.auto" className="h-12 w-auto" />
+          </div>
+          <div className="mt-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/70"><span className="h-1.5 w-1.5 rounded-full bg-[#e0563b]"></span>Обучаем русификации авто 🇨🇳 → 🇷🇺</div>
+          <h1 style={{fontFamily:"Oswald"}} className="mt-5 text-[40px] font-bold leading-[1.05] uppercase tracking-tight">Подберём <span className="text-[#e0563b]">формат обучения</span> под вашу цель</h1>
+          <p className="mt-4 text-[15px] leading-relaxed text-white/70">Ответьте на пару вопросов, и мы предложим подходящий формат курса — от онлайна до индивидуальной практики.</p>
+          <button onClick={startQuiz} className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#c0341d] px-6 py-4 text-base font-bold text-white shadow-lg shadow-[#c0341d]/30 transition active:scale-[0.98] hover:bg-[#d13d24]">Пройти короткий опрос<Ico.ArrowRight className="h-5 w-5" /></button>
+          <div className="mt-6 flex items-center justify-center gap-5 text-[11px] text-white/45"><span>~ 1 минута</span><span className="h-3 w-px bg-white/15"></span><span>{TOTAL_MODELS}+ моделей авто</span><span className="h-3 w-px bg-white/15"></span><span>Скидка 30%</span></div>
+        </div>
+      </section>
+
+      {/* ФОРМАТЫ */}
+      <section className="bg-[#f6f1ee] py-14 text-[#0f0d0c]">
+        <div className="mx-auto max-w-5xl px-6">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#c0341d]">Форматы курсов</p>
+          <h2 style={{fontFamily:"Oswald"}} className="mt-2 text-3xl font-bold uppercase leading-tight">Выберите, как удобно учиться</h2>
+          <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-[#c0341d]/10 px-3 py-1 text-xs font-semibold text-[#c0341d]">🔥 Действует скидка 30%</div>
+          <p className="mt-3 text-sm text-black/60">Оффлайн-форматы (групповой и индивидуальный) проходят очно <span className="font-semibold text-[#c0341d]">в Алматы</span>. Онлайн-курс доступен из любой точки.</p>
+          <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-3 md:items-stretch">
+            {FORMATS.map(f=>{ const Icon=f.icon; return (
+              <div key={f.id} className={"relative flex flex-col rounded-3xl border p-5 transition "+(f.featured?"border-[#c0341d] bg-[#0f0d0c] text-white shadow-xl md:scale-[1.03]":"border-black/10 bg-white")}>
+                {f.featured && <span className="absolute -top-3 left-5 rounded-full bg-[#c0341d] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">Популярный</span>}
+                <div className="flex items-center gap-3">
+                  <div className={"flex h-11 w-11 items-center justify-center rounded-xl "+(f.featured?"bg-[#c0341d]":"bg-[#c0341d]/10")}><Icon className={"h-5 w-5 "+(f.featured?"text-white":"text-[#c0341d]")} /></div>
+                  <div><h3 style={{fontFamily:"Oswald"}} className="text-lg font-semibold uppercase leading-none">{f.name}</h3><p className={"mt-1 text-xs "+(f.featured?"text-white/55":"text-black/50")}>{f.tag}</p></div>
+                </div>
+                <div className="mt-4 flex items-end gap-2.5">
+                  <span style={{fontFamily:"Oswald"}} className={"text-[26px] font-bold leading-none "+(f.featured?"text-white":"text-[#0f0d0c]")}>{fmt(f.newPrice)}</span>
+                  <span className={"pb-0.5 text-sm line-through "+(f.featured?"text-white/40":"text-black/35")}>{fmt(f.oldPrice)}</span>
+                  <span className={"mb-0.5 rounded-full px-2 py-0.5 text-[10px] font-bold "+(f.featured?"bg-white/15 text-[#e0563b]":"bg-[#c0341d] text-white")}>−30%</span>
+                </div>
+                <ul className="mt-4 space-y-2">{f.points.map((p,i)=>(<li key={i} className="flex items-start gap-2 text-sm"><Ico.Check className={"mt-0.5 h-4 w-4 shrink-0 "+(f.featured?"text-[#e0563b]":"text-[#c0341d]")} /><span className={f.featured?"text-white/85":"text-black/70"}>{p}</span></li>))}</ul>
+                <button onClick={startQuiz} className={"mt-auto w-full rounded-xl px-4 py-3 text-sm font-bold transition active:scale-[0.98] "+(f.featured?"bg-[#c0341d] text-white hover:bg-[#d13d24]":"bg-[#0f0d0c] text-white hover:bg-[#241d1b]")}>Выбрать формат</button>
+              </div>
+            );})}
+          </div>
+          <div className="mt-8 grid grid-cols-3 gap-3">
+            {[{i:Ico.Head,t:"Личный куратор"},{i:Ico.Shield,t:"Тех. поддержка"},{i:Ico.Trend,t:"Реальный доход"}].map((b,i)=>{const I=b.i;return(
+              <div key={i} className="rounded-2xl border border-black/10 bg-white p-3 text-center"><I className="mx-auto h-5 w-5 text-[#c0341d]" /><p className="mt-2 text-[11px] font-semibold leading-tight text-black/70">{b.t}</p></div>);})}
+          </div>
+        </div>
+      </section>
+
+      {/* МОДЕЛИ */}
+      <section className="bg-[#0f0d0c] py-14">
+        <div className="mx-auto max-w-md px-6">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#e0563b]">Что вы научитесь прошивать</p>
+          <h2 style={{fontFamily:"Oswald"}} className="mt-2 text-3xl font-bold uppercase leading-tight">{TOTAL_MODELS}+ моделей авто</h2>
+          <p className="mt-3 text-sm text-white/55">Перечень моделей зависит от выбранного формата. Нажмите на бренд, чтобы посмотреть.</p>
+          <div className="mt-6 space-y-2.5">
+            {MODELS.map(b=>{const isOpen=openBrand===b.brand;return(
+              <div key={b.brand} className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
+                <button onClick={()=>setOpenBrand(isOpen?null:b.brand)} className="flex w-full items-center justify-between px-4 py-3.5 text-left">
+                  <span className="text-sm font-semibold text-white/90">{b.brand}</span>
+                  <div className="flex items-center gap-2"><span className="rounded-full bg-[#c0341d]/20 px-2 py-0.5 text-[11px] font-semibold text-[#e0563b]">{b.items.length}</span><Ico.Chevron className={"h-4 w-4 text-white/50 transition "+(isOpen?"rotate-180":"")} /></div>
+                </button>
+                {isOpen && <div className="border-t border-white/10 px-4 py-3"><div className="flex flex-wrap gap-2">{b.items.map(m=>(<span key={m} className="rounded-lg bg-white/5 px-2.5 py-1 text-xs text-white/70">{m}</span>))}</div></div>}
+              </div>);})}
+          </div>
+        </div>
+      </section>
+
+      {/* ПОЧЕМУ СЕЙЧАС + СТАТЫ */}
+      <section className="bg-[#f6f1ee] py-14 text-[#0f0d0c]">
+        <div className="mx-auto max-w-5xl px-6">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#c0341d]">Спрос растёт</p>
+          <h2 style={{fontFamily:"Oswald"}} className="mt-2 text-3xl font-bold uppercase leading-tight">Почему русификацией выгодно заниматься прямо сейчас</h2>
+          <div className="mt-7 grid grid-cols-1 gap-3 md:grid-cols-2">
+            {WHY.map((w,i)=>(
+              <div key={i} className="flex items-start gap-3 rounded-2xl border border-black/10 bg-white p-4">
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#c0341d] text-xs font-bold text-white">{i+1}</div>
+                <p className="text-sm leading-relaxed text-black/75">{w}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+            {STATS.map((s,i)=>(
+              <div key={i} className="rounded-2xl border border-black/10 bg-[#0f0d0c] p-5 text-center text-white">
+                <div style={{fontFamily:"Oswald"}} className="text-3xl font-bold text-[#e0563b]">{s.value}</div>
+                <p className="mt-1 text-[11px] leading-tight text-white/60">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ОТЗЫВЫ */}
+      <section className="bg-[#0f0d0c] py-14">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="flex items-center gap-2">
+            <div className="flex gap-0.5">{[0,1,2,3,4].map(i=>(<Ico.Star key={i} className="h-4 w-4 text-amber-400" />))}</div>
+            <span className="text-xs font-semibold text-white/60">Нам доверяют ученики по всему Казахстану</span>
+          </div>
+          <h2 style={{fontFamily:"Oswald"}} className="mt-3 text-3xl font-bold uppercase leading-tight">Отзывы наших учеников</h2>
+          <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {REVIEWS.map((r,i)=>(
+              <div key={i} className="flex flex-col rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+                <div className="flex gap-0.5">{[0,1,2,3,4].map(j=>(<Ico.Star key={j} className="h-4 w-4 text-amber-400" />))}</div>
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-white/80">«{r.text}»</p>
+                <div className="mt-5 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#c0341d] text-sm font-bold text-white">{r.initial}</div>
+                  <div><div className="text-sm font-semibold text-white">{r.name}</div><div className="text-xs text-white/45">{r.role}</div></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FLOW */}
+      <section id="flow" className="bg-[#f6f1ee] py-14 text-[#0f0d0c]">
+        <div className="mx-auto max-w-md px-6">
+          {stage==="landing" && (
+            <div className="rounded-3xl border border-black/10 bg-white p-8 text-center">
+              <h2 style={{fontFamily:"Oswald"}} className="text-2xl font-bold uppercase leading-tight">Готовы подобрать формат?</h2>
+              <p className="mt-3 text-sm text-black/60">5 коротких вопросов — и мы поймём, что подойдёт именно вам.</p>
+              <button onClick={startQuiz} className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#c0341d] px-6 py-4 text-base font-bold text-white transition active:scale-[0.98] hover:bg-[#d13d24]">Пройти короткий опрос<Ico.ArrowRight className="h-5 w-5" /></button>
+            </div>
+          )}
+          {stage==="quiz" && (
+            <div className="rounded-3xl border border-black/10 bg-white p-6">
+              <div className="flex items-center justify-between text-xs font-semibold text-black/40"><span>Вопрос {step+1} из {QUESTIONS.length}</span><span>{Math.round(((step+1)/QUESTIONS.length)*100)}%</span></div>
+              <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-black/10"><div className="h-full rounded-full bg-[#c0341d] transition-all duration-300" style={{width:(((step+1)/QUESTIONS.length)*100)+"%"}}></div></div>
+              <h2 style={{fontFamily:"Oswald"}} className="mt-6 text-2xl font-bold uppercase leading-tight">{QUESTIONS[step].q}</h2>
+              <div className="mt-5 space-y-3">
+                {QUESTIONS[step].options.map(opt=>{const active=answers[QUESTIONS[step].id]===opt;return(
+                  <button key={opt} onClick={()=>pick(QUESTIONS[step].id,opt)} className={"flex w-full items-center justify-between rounded-2xl border px-4 py-3.5 text-left text-sm font-medium transition active:scale-[0.99] "+(active?"border-[#c0341d] bg-[#c0341d] text-white":"border-black/10 bg-white hover:border-[#c0341d]/40 hover:bg-[#c0341d]/5")}>{opt}<Ico.ArrowRight className={"h-4 w-4 "+(active?"text-white":"text-black/25")} /></button>);})}
+              </div>
+              {step>0 && <button onClick={()=>setStep(s=>s-1)} className="mt-5 text-xs font-semibold text-black/40 hover:text-black/70">← Назад</button>}
+            </div>
+          )}
+          {stage==="contact" && (
+            <div className="rounded-3xl border border-black/10 bg-white p-7">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#c0341d]/10"><Ico.Check className="h-6 w-6 text-[#c0341d]" /></div>
+              <h2 style={{fontFamily:"Oswald"}} className="mt-4 text-2xl font-bold uppercase leading-tight">Спасибо! Оставьте заявку</h2>
+              <p className="mt-2 text-sm text-black/60">Мы свяжемся с вами и предложим подходящий формат курса.</p>
+              <div className="mt-6 space-y-4">
+                <div><label className="text-xs font-semibold text-black/50">Ваше имя</label><div className="mt-1.5 flex items-center gap-2 rounded-2xl border border-black/10 bg-[#f6f1ee] px-4 py-3 focus-within:border-[#c0341d]"><Ico.User className="h-4 w-4 text-black/40" /><input value={name} onChange={e=>setName(e.target.value)} placeholder="Например, Багжан" className="w-full bg-transparent text-sm outline-none placeholder:text-black/30" /></div></div>
+                <div><label className="text-xs font-semibold text-black/50">Номер телефона</label><div className="mt-1.5 flex items-center gap-2 rounded-2xl border border-black/10 bg-[#f6f1ee] px-4 py-3 focus-within:border-[#c0341d]"><Ico.Phone className="h-4 w-4 text-black/40" /><input value={phone} onChange={e=>setPhone(e.target.value)} placeholder="+7 ___ ___ __ __" inputMode="tel" className="w-full bg-transparent text-sm outline-none placeholder:text-black/30" /></div></div>
+              </div>
+              <button onClick={submit} disabled={!name.trim()||!phone.trim()||sending} className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#c0341d] px-6 py-4 text-base font-bold text-white transition active:scale-[0.98] hover:bg-[#d13d24] disabled:cursor-not-allowed disabled:opacity-40"><Ico.Phone className="h-5 w-5" />{sending?"Отправляем…":"Заказать звонок"}</button>
+              <p className="mt-3 text-center text-[11px] text-black/40">Нажимая кнопку, вы перейдёте в WhatsApp с готовым сообщением.</p>
+            </div>
+          )}
+          {stage==="done" && (
+            <div className="rounded-3xl border border-[#c0341d]/30 bg-white p-8 text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#c0341d]/10"><Ico.Check className="h-8 w-8 text-[#c0341d]" /></div>
+              <h2 style={{fontFamily:"Oswald"}} className="mt-4 text-2xl font-bold uppercase">Заявка отправлена!</h2>
+              <p className="mt-2 text-sm text-black/60">Если WhatsApp не открылся автоматически — нажмите кнопку ниже.</p>
+              <a href={"https://wa.me/"+WHATSAPP_NUMBER+"?text="+buildMessage()} target="_blank" rel="noreferrer" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#c0341d] px-6 py-4 text-base font-bold text-white transition active:scale-[0.98] hover:bg-[#d13d24]">Открыть WhatsApp</a>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <footer className="bg-[#0f0d0c] py-8 text-center">
+        <img src={LOGO} alt="Russification.auto" className="mx-auto h-10 w-auto opacity-90" />
+        <p className="mt-2 text-xs text-white/40">Перевод мультимедиа и систем авто с китайского на русский · Алматы</p>
+      </footer>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
