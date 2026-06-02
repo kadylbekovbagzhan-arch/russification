@@ -183,15 +183,11 @@ function App() {
           <div className="mt-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/70"><span className="h-1.5 w-1.5 rounded-full bg-[#e0563b]"></span>Обучаем русификации авто 🇨🇳 → 🇷🇺</div>
           <h1 style={{fontFamily:"Oswald"}} className="mt-5 text-[36px] font-bold leading-[1.05] uppercase tracking-tight">Освой русификацию авто и <span className="text-[#e0563b]">зарабатывай с первого заказа</span></h1>
 
-          <div className="mt-6 rounded-3xl border border-white/10 bg-white/[0.04] p-5">
-            <p className="text-[15px] leading-relaxed text-white/85">«Я не из тех, кому всё давалось легко. Работал курьером, перебивался от зарплаты до зарплаты, а дома — маленький ребёнок и постоянная тревога за деньги. На курс решился на последние. Первую машину русифицировал за 40 минут — и заработал 35 000 ₸ за один вечер. Просто сидел и смотрел, как перевод появляется на экране. Сейчас беру по несколько заказов в день и больше не считаю копейки до конца месяца.»</p>
-            <p className="mt-3 text-xs font-semibold text-white/50">— Арман, ученик курса · Алматы</p>
-          </div>
+          <p className="mt-4 text-[15px] leading-relaxed text-white/75">Наши ученики зарабатывают <span className="font-bold text-[#e0563b]">25 000 – 50 000 ₸</span> за одну машину — а это всего 30–40 минут работы.</p>
 
-          <div className="mt-7">
+          <div className="mt-6">
             <p className="text-xs font-bold uppercase tracking-wide text-[#e0563b]">Реальные оплаты учеников</p>
-            <p className="mt-1 text-sm text-white/65">Одна русификация — в среднем 30–40 минут работы</p>
-            <div className="mt-4 grid grid-cols-2 gap-3">
+            <div className="mt-3 grid grid-cols-2 gap-3">
               {PROOFS.map((p,i)=>(
                 <div key={i} className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
                   <img src={p.img} alt={"Оплата "+p.amount} loading="lazy" className="w-full" />
@@ -203,6 +199,33 @@ function App() {
 
           <button onClick={()=>document.getElementById("formats")?.scrollIntoView({behavior:"smooth"})} className="group mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#c0341d] px-6 py-4 text-base font-bold text-white shadow-lg shadow-[#c0341d]/30 transition active:scale-[0.98] hover:bg-[#d13d24]">Хочу зарабатывать также<Ico.ArrowRight className="h-5 w-5 shrink-0" /></button>
           <div className="mt-5 flex items-center justify-center gap-5 text-[11px] text-white/45"><span>Старт с нуля</span><span className="h-3 w-px bg-white/15"></span><span>{TOTAL_MODELS}+ моделей авто</span><span className="h-3 w-px bg-white/15"></span><span>Скидка 30%</span></div>
+        </div>
+      </section>
+
+      {/* КАК ЭТО РАБОТАЕТ */}
+      <section className="bg-[#0f0d0c] py-14 text-white">
+        <div className="mx-auto max-w-5xl px-6">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#e0563b]">Как ты будешь зарабатывать</p>
+          <h2 style={{fontFamily:"Oswald"}} className="mt-3 text-3xl font-bold uppercase leading-tight">Простой процесс, понятный результат</h2>
+          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-white/70">С одним ноутбуком ты перепрошиваешь мультимедиа китайских машин: меню и система из китайского становятся <span className="font-semibold text-white">полностью русскими</span>. Дополнительно ставишь нужные приложения — 2ГИС, YouTube и другие. Одна машина — это в среднем <span className="font-semibold text-white">30 минут работы</span>.</p>
+
+          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {[
+              {n:"1",t:"Клиент приезжает",d:"У него мультимедиа на китайском — ничего не понятно и неудобно."},
+              {n:"2",t:"Ты прошиваешь",d:"По схеме с курса переводишь систему на русский и ставишь приложения. ~30 минут."},
+              {n:"3",t:"Получаешь оплату",d:"За одну машину — 25 000 – 35 000 ₸. Несколько заказов в день — это твой доход."},
+            ].map(s=>(
+              <div key={s.n} className="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#c0341d] text-sm font-bold">{s.n}</div>
+                <h3 style={{fontFamily:"Oswald"}} className="mt-3 text-lg font-semibold uppercase leading-tight">{s.t}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/65">{s.d}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 rounded-3xl border border-[#c0341d]/30 bg-[#c0341d]/10 p-5">
+            <p className="text-[15px] leading-relaxed text-white/85">💰 <span className="font-bold">Что ты сможешь после курса:</span> русифицировать любую китайскую машину за 25 000 – 35 000 ₸, тратя ~30 минут на одну. Это навык, который кормит — а не разовая подработка.</p>
+          </div>
         </div>
       </section>
 
@@ -306,6 +329,26 @@ function App() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section className="bg-[#f6f1ee] py-14 text-[#0f0d0c]">
+        <div className="mx-auto max-w-3xl px-6">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#c0341d]">Частые вопросы</p>
+          <h2 style={{fontFamily:"Oswald"}} className="mt-3 text-3xl font-bold uppercase leading-tight">Отвечаем на главные сомнения</h2>
+          <div className="mt-7 space-y-3">
+            {[
+              {q:"А если я не технарь?",a:"Получится. Курс рассчитан на новичков с нуля — всё по шагам, с инструкциями и куратором. Не нужно быть программистом: ты просто повторяешь проверенную последовательность действий."},
+              {q:"Какое оборудование нужно?",a:"Только ноутбук на Windows. Мощный не обязателен — подойдёт любой рабочий ноутбук. Никакого дорогого оборудования покупать не нужно."},
+              {q:"А есть ли вообще спрос?",a:"Спрос огромный и продолжает расти. Китайских машин на дорогах всё больше: только за 2025 год в Казахстане продано около 85 000 новых китайских авто — это почти 40% рынка. Почти у всех мультимедиа на китайском, а специалистов по русификации не хватает. Клиенты ищут таких мастеров сами."},
+            ].map((f,i)=>(
+              <div key={i} className="rounded-2xl border border-black/10 bg-white p-5">
+                <h3 className="text-base font-bold text-[#0f0d0c]">{f.q}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-black/65">{f.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FLOW */}
       <section id="flow" className="bg-[#f6f1ee] py-14 text-[#0f0d0c]">
         <div className="mx-auto max-w-md px-6">
@@ -315,7 +358,7 @@ function App() {
               <h2 style={{fontFamily:"Oswald"}} className="mt-4 text-2xl font-bold uppercase leading-tight">Оставь заявку — мы свяжемся с тобой</h2>
               <p className="mt-2 text-sm text-black/60">Подскажем по программе, ценам и поможем выбрать формат.</p>
               <div className="mt-6 space-y-4">
-                <div><label className="text-xs font-semibold text-black/50">Имя</label><div className="mt-1.5 flex items-center gap-2 rounded-2xl border border-black/10 bg-[#f6f1ee] px-4 py-3 focus-within:border-[#c0341d]"><Ico.User className="h-4 w-4 text-black/40" /><input value={name} onChange={e=>setName(e.target.value)} placeholder="Например, Багжан" className="w-full bg-transparent text-sm outline-none placeholder:text-black/30" /></div></div>
+                <div><label className="text-xs font-semibold text-black/50">Имя</label><div className="mt-1.5 flex items-center gap-2 rounded-2xl border border-black/10 bg-[#f6f1ee] px-4 py-3 focus-within:border-[#c0341d]"><Ico.User className="h-4 w-4 text-black/40" /><input value={name} onChange={e=>setName(e.target.value)} placeholder="Например, Бека" className="w-full bg-transparent text-sm outline-none placeholder:text-black/30" /></div></div>
                 <div><label className="text-xs font-semibold text-black/50">Телефон</label><div className="mt-1.5 flex items-center gap-2 rounded-2xl border border-black/10 bg-[#f6f1ee] px-4 py-3 focus-within:border-[#c0341d]"><Ico.Phone className="h-4 w-4 text-black/40" /><input value={phone} onChange={e=>setPhone(e.target.value)} placeholder="+7 ___ ___ __ __" inputMode="tel" className="w-full bg-transparent text-sm outline-none placeholder:text-black/30" /></div></div>
                 <div><label className="text-xs font-semibold text-black/50">Формат обучения</label>
                   <div className="mt-1.5 grid grid-cols-2 gap-2">
